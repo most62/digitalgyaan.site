@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paper: cool off-white, not the templated warm cream */
+    --background: 48 20% 96%;
+    --foreground: 234 40% 12%;
+    --surface: 0 0% 100%;
+
+    /* Marigold: primary accent */
+    --primary: 36 90% 55%;
+    --primary-foreground: 234 40% 12%;
+
+    /* Signal Indigo: links / secondary emphasis */
+    --secondary: 246 74% 58%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Live Teal: trending/live badges */
+    --live: 176 88% 33%;
+    --live-foreground: 0 0% 100%;
+
+    --muted: 48 12% 91%;
+    --muted-foreground: 234 12% 40%;
+    --accent: 48 12% 91%;
+    --accent-foreground: 234 40% 12%;
+    --border: 234 12% 87%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 234 42% 8%;
+    --foreground: 48 20% 95%;
+    --surface: 234 36% 11%;
+
+    --primary: 36 90% 58%;
+    --primary-foreground: 234 42% 8%;
+
+    --secondary: 246 80% 68%;
+    --secondary-foreground: 234 42% 8%;
+
+    --live: 176 70% 45%;
+    --live-foreground: 234 42% 8%;
+
+    --muted: 234 24% 16%;
+    --muted-foreground: 234 12% 65%;
+    --accent: 234 24% 16%;
+    --accent-foreground: 48 20% 95%;
+    --border: 234 20% 20%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .focus-ring {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+}
+
+/* Article content: TipTap-authored HTML, processed server-side with heading
+   anchors + syntax highlighting. Scoped under .article-content so it never
+   leaks into the rest of the UI. */
+.article-content {
+  @apply font-sans text-base leading-relaxed text-foreground;
+}
+.article-content h2 {
+  @apply mt-10 scroll-mt-24 font-display text-2xl font-bold tracking-tight;
+}
+.article-content h3 {
+  @apply mt-8 scroll-mt-24 font-display text-xl font-bold tracking-tight;
+}
+.article-content h4 {
+  @apply mt-6 scroll-mt-24 font-display text-lg font-semibold tracking-tight;
+}
+.article-content p {
+  @apply my-4 text-muted-foreground;
+}
+.article-content a {
+  @apply text-secondary underline underline-offset-2 hover:text-primary;
+}
+.article-content ul {
+  @apply my-4 list-disc space-y-1 pl-6;
+}
+.article-content ol {
+  @apply my-4 list-decimal space-y-1 pl-6;
+}
+.article-content blockquote {
+  @apply my-6 border-l-4 border-primary bg-accent px-4 py-3 italic text-foreground;
+}
+.article-content img {
+  @apply my-6 rounded-xl;
+}
+.article-content pre {
+  @apply my-6 overflow-x-auto rounded-xl bg-[hsl(234,42%,8%)] p-4 text-sm text-[hsl(48,20%,95%)];
+}
+.article-content :not(pre) > code {
+  @apply rounded bg-accent px-1.5 py-0.5 font-mono text-sm text-secondary;
+}
+.article-content pre code {
+  @apply font-mono;
+}
+
+/* Minimal highlight.js token palette, matched to our design tokens
+   instead of importing a stock theme. */
+.hljs-keyword, .hljs-selector-tag, .hljs-literal { color: hsl(36, 90%, 65%); }
+.hljs-string, .hljs-attr { color: hsl(176, 60%, 60%); }
+.hljs-comment { color: hsl(234, 12%, 55%); font-style: italic; }
+.hljs-title, .hljs-name, .hljs-function { color: hsl(246, 80%, 78%); }
+.hljs-number { color: hsl(36, 90%, 65%); }
