@@ -17,11 +17,12 @@ import { CommentsSection } from '@/components/comments/comments-section';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://digitalgyaan.site';
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const data = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const data = await getPostBySlug(slug);
   if (!data) return { title: 'Article not found' };
   const { post } = data;
 
@@ -48,7 +49,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ArticlePage({ params }: PageProps) {
-  const data = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const data = await getPostBySlug(slug);
   if (!data) notFound();
 
   const { post, relatedPosts, prevPost, nextPost } = data;
